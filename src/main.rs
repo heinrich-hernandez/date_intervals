@@ -7,7 +7,7 @@ fn main() {
     let y = current_date.year();
     let x = current_date.day();
     let z = current_date.month().try_into().unwrap();
-    println!("the value of x is :{x}");
+
     let a = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     let za = a[z-1];
 
