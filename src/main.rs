@@ -7,7 +7,7 @@ fn main() {
     let y = current_date.year();
     let x = current_date.day();
     let z = current_date.month().try_into().unwrap();
-
+    println!("the value of x is :{x}");
     let a = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     let za = a[z-1];
 
@@ -17,7 +17,6 @@ fn main() {
 
     loop {
         let aaa : u32 = y.try_into().unwrap();
-
         //input fields
 
         //day of birth
@@ -80,10 +79,9 @@ fn main() {
             let bca = {
                 let aaaa = aaa - year_born;
                 if zab > z {aaaa - 1}
-                else if zab == z && day_born >= x {aaaa}
+                else if zab == z && x < day_born {aaaa - 1}
                 else{aaaa}
             };
-
             //months existing in this world
             let aa = { 
                 years_to_months(bca) + month_born
