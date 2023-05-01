@@ -86,6 +86,7 @@ fn main() {
 
         if answer.trim() == 'y'{
             let age_in_years = {
+                //try to make this a function
                 let current_age = today.year - input_bithday.year;
                 if input_bithday.month > today.month{current_age - 1}
                 else if input_birthday.month == today.month && input_birthday < today.day{current_age -1}
