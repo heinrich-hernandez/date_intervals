@@ -6,7 +6,7 @@ use std::io;
 struct Dates {
     day: u32,
     month: u32,
-    year: u32, //can't use u32 for some reason
+    year: u32,
 }
 
 impl Dates{
@@ -71,39 +71,45 @@ fn main() {
             Err(_) => continue,
         };
 
-        let input_bithday = Dates{
+        let input_birthday = Dates{
             day : day_of_birth, 
             month : month_of_birth,
             year : year_of_birth,
         };
 
-        println!("Is this your birthday? y/n\n{}/{}/{}",input_bithday.day,input_bithday.numbers_to_months((input_bithday.month -1).try_into().unwrap()),input_bithday.year);
+        println!("\nIs this your birthday? y/n\n{}/{}/{}",input_birthday.day,input_birthday.numbers_to_months((input_birthday.month -1).try_into().unwrap()),input_birthday.year);
         
         let mut answer = String::new();
         io::stdin()
-            .read_line(&mut month_of_birth)
+            .read_line(&mut answer)
             .expect("Failed to read line");
 
-        if answer.trim() == 'y'{
+        if answer.trim() == "y" || answer.trim() == "" {
             let age_in_years = {
-                //try to make this a function
-                let current_age = today.year - input_bithday.year;
-                if input_bithday.month > today.month{current_age - 1}
-                else if input_birthday.month == today.month && input_birthday < today.day{current_age -1}
-                else{current_age}
-                }
+                let current_age_in_years = today.year - input_birthday.year;
+                if input_birthday.month > today.month || input_birthday.month == today.month && input_birthday.day < today.day {current_age_in_years -1}
+                else{current_age_in_years}
+                };
             
             let age_in_months = {
-
-            }
+                let current_age_in_months = age_in_years * 12;
+                if input_birthday.month > today.month {current_age_in_months+(input_birthday.month - today.month)}
+                else{current_age_in_months}
+            };
 
             let age_in_weeks = {
-
-            }
+                let current_age_in_weeks : f32 = age_in_months as f32 * 4.34524;
+                current_age_in_weeks
+            };
 
             let age_in_days = {
-                
-            }
+                let current_age_in_days : f32 = age_in_weeks * 7.0;
+                current_age_in_days
+            };
+
+            println!("\nYour age in :\nDays : {}\nWeeks : {}\nMonths : {}\nYears : {}\n\n", age_in_days,age_in_weeks,age_in_months,age_in_years);
+
+
         }else{
             continue;
         }
