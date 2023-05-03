@@ -51,6 +51,7 @@ fn main() {
             .read_line(&mut month_of_birth)
             .expect("Failed to read line");
         
+        //simplify the if conditions into a function---can also transpose into if conditions into match conditions instead
         if month_of_birth.trim() == "quit" || month_of_birth.trim() == "stop" {break;}
 
         let month_of_birth: u32 = match month_of_birth.trim().parse() {
@@ -97,11 +98,13 @@ fn main() {
                 else{current_age_in_months}
             };
 
+            //calculate the remaining weeks in the difference between day of birth and day currently into weeks
             let age_in_weeks = {
                 let current_age_in_weeks : f32 = age_in_months as f32 * 4.34524;
                 current_age_in_weeks
             };
 
+            //calculate the difference difference between day of birth and day currently and add unto current montha instead of weeks
             let age_in_days = {
                 let current_age_in_days : f32 = age_in_weeks * 7.0;
                 current_age_in_days
