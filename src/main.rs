@@ -87,24 +87,26 @@ fn main() {
         if answer.trim() == "y" || answer.trim() == "" {
             let age_in_years = {
                 let current_age_in_years = today.year - input_birthday.year;
-                if input_birthday.month > today.month || input_birthday.month == today.month && input_birthday.day < today.day {current_age_in_years -1}
+                if input_birthday.month > today.month || input_birthday.month == today.month && input_birthday.day > today.day {current_age_in_years -1}
                 else{current_age_in_years}
                 };
             
             let age_in_months = {
                 let current_age_in_months = age_in_years * 12;
-                if input_birthday.month > today.month {current_age_in_months+(input_birthday.month - today.month)}
+                if input_birthday.month > today.month || input_birthday.month == today.month && input_birthday.day > today.day {current_age_in_months+(input_birthday.month - today.month)}
                 else{current_age_in_months}
             };
 
             let age_in_weeks = {
                 let current_age_in_weeks : f32 = age_in_months as f32 * 4.34524;
-                current_age_in_weeks
+                if input_birthday.month == today.month && input_birthday.day < today.day {current_age_in_weeks + (today.day/input_birthday.day) as f32}
+                else {current_age_in_weeks}
             };
 
             let age_in_days = {
                 let current_age_in_days : f32 = age_in_weeks * 7.0;
-                current_age_in_days
+                if input_birthday.month == today.month && input_birthday.day < today.day {current_age_in_days + (if today.day/input_birthday.day > 0 {(today.day/input_birthday.day) as f32 * 7.0} else { 0.0 })}
+                else {current_age_in_days}
             };
 
             println!("\nYour age in :\nDays : {}\nWeeks : {}\nMonths : {}\nYears : {}\n\n", age_in_days,age_in_weeks,age_in_months,age_in_years);
@@ -116,4 +118,15 @@ fn main() {
     };
 }
 
+//added new logic for age_in_days and age_in_weeks
+
+/*
+Problem:
+    Isn't accurate enough if the birthday input is over the the day currently
+Goal:
+    To make it more accurate and using chrono to its limits or creating my own logic towards it
+    problem logic in the future:
+        =>if I can use chrono fully = create better project
+        =>if not -> make it so that it is accurate to the second floating point digit
+*/
 
