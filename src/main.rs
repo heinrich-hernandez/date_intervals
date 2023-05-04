@@ -131,5 +131,19 @@ Goal:
     problem logic in the future:
         =>if I can use chrono fully = create better project
         =>if not -> make it so that it is accurate to the second floating point digit
-*/
 
+
+    Whilst studying chrono:
+        I realized there are limitation towards the crate, such limitation is my understanding of the crate and of how I don't really much undertand what I'm trying to take away from it.
+
+        =>Extract the age of input compared to the date now by:
+            ->year
+            ->month
+            ->week
+            ->day
+            ->hrs
+            ->min
+            ->sec
+    
+        The problem with my own understanding is that it is very limitted at the moment. Although reading the documentation is a good idea. I don't think I would percieve it as much as I'd like to. I have to struggle understanding it and fully ingesting how it works. Although I see it as a must as I develop into rust further as it adheres to ISO-8601.
+*/
