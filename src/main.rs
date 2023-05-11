@@ -1,5 +1,5 @@
-use chrono::Datelike;
-use chrono;
+use chrono::{NaiveDate};
+use chrono::{Datelike};
 use std::io;
 
 
@@ -78,6 +78,10 @@ fn main() {
             year : year_of_birth,
         };
 
+        let birth_date = format!("{}-{}-{}", input_birthday.year,input_birthday.month,input_birthday.day);
+        let birthday = NaiveDate::parse_from_str(&birth_date, "%Y-%m-%d").unwrap();
+        let age = current_date.signed_duration_since(birthday).num_days();
+
         println!("\nIs this your birthday? y/n\n{}/{}/{}",input_birthday.day,input_birthday.numbers_to_months((input_birthday.month -1).try_into().unwrap()),input_birthday.year);
         
         let mut answer = String::new();
@@ -87,29 +91,21 @@ fn main() {
 
         if answer.trim() == "y" || answer.trim() == "" {
             let age_in_years = {
-                let current_age_in_years = today.year - input_birthday.year;
-                if input_birthday.month > today.month || input_birthday.month == today.month && input_birthday.day > today.day {current_age_in_years -1}
-                else{current_age_in_years}
+                age/365
                 };
             
             let age_in_months = {
-                let current_age_in_months = age_in_years * 12;
-                if input_birthday.month > today.month || input_birthday.month == today.month && input_birthday.day > today.day {current_age_in_months+(input_birthday.month - today.month)}
-                else{current_age_in_months}
+                age/30
             };
 
             //calculate the remaining weeks in the difference between day of birth and day currently into weeks
             let age_in_weeks = {
-                let current_age_in_weeks : f32 = age_in_months as f32 * 4.34524;
-                if input_birthday.month == today.month && input_birthday.day < today.day {current_age_in_weeks + (today.day/input_birthday.day) as f32}
-                else {current_age_in_weeks}
+                age/7
             };
 
             //calculate the difference difference between day of birth and day currently and add unto current montha instead of weeks
             let age_in_days = {
-                let current_age_in_days : f32 = age_in_weeks * 7.0;
-                if input_birthday.month == today.month && input_birthday.day < today.day {current_age_in_days + (if today.day/input_birthday.day > 0 {(today.day/input_birthday.day) as f32 * 7.0} else { 0.0 })}
-                else {current_age_in_days}
+                age
             };
 
             println!("\nYour age in :\nDays : {}\nWeeks : {}\nMonths : {}\nYears : {}\n\n", age_in_days,age_in_weeks,age_in_months,age_in_years);
